@@ -1,9 +1,10 @@
 #from distutils.core import setup, Extension
 from setuptools import setup, Extension
 from distutils.sysconfig import get_python_inc
+from os import walk
 import numpy 
 
-sources=[
+sources = [
         'PythonBindings.cpp',
 ]
 
@@ -15,6 +16,14 @@ xlib_module = Extension(
     libraries=['stdc++'],
     include_dirs=[numpy.get_include(), get_python_inc()]
 )
+
+headers = []
+for (dirpath, dirs, files) in walk('.'):
+    for fname in files:
+        if fname.endswith('.h') or fname.endswith('.hpp'):
+            headers.append(fname)
+
+all_files = sources + headers
 
 setup(
     name='xlib_bindings',
@@ -31,5 +40,6 @@ setup(
     package_data={
         '': ['PythonBindings.cpp', '*.h', '*.c']
     },
-    include_package_data=True
+    include_package_data=True,
+    data_files=[('.', all_files)]
 )
