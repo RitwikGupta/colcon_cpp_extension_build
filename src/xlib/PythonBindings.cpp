@@ -5,6 +5,8 @@
 #include <Python.h>
 #include <numpy/arrayobject.h>
 
+#include "nothing.h"
+
 static char module_docstring[] = "This module exposes C++ code to Python";
 
 static PyObject *xlib_test(PyObject *self, PyObject *args)

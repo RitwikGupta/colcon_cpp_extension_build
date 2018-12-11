@@ -1,0 +1,1 @@
+int does_nothing();
